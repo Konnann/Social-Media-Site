@@ -8,6 +8,10 @@ namespace ATHNN.Models
 {
     public class Post
     {
+        public Post()
+        {
+            this.Tags = new List<Tag>();
+        }
         [Key]
         public int Id { get; set; }
 
@@ -22,5 +26,7 @@ namespace ATHNN.Models
         public DateTime Date { get; set; }
 
         public ApplicationUser Author { get; set; }
+
+        public List<Tag> Tags { get; set; }
     }
 }
