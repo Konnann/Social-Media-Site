@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 using ATHNN.Models;
@@ -12,33 +13,57 @@ namespace ATHNN.Controllers
 {
     public class PostsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext ( );
+
+        public ActionResult Gaming ( )
+        {
+            string[] tagsForListing = new string[] { "game" };
+         
+           
+            List<Post> taggedPosts = new List<Post>();
+            var posts = db.Posts.ToList();
+            var p = db.Posts.Where(x => x.Id == 2).Include(x => x.Tags);
+            foreach (var post in posts)
+            {
+                var postTags = post.Tags;
+                foreach (var postTag in postTags)
+                {
+                    if ( tagsForListing.Contains (postTag.Name) )
+                    {
+                        taggedPosts.Add(post);
+                    }
+                    
+                }
+            }
+            ViewBag.TaggedPosts = taggedPosts;
+            return View ( );
+        }
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index ( )
         {
-            return View(db.Posts.ToList());
+            return View (db.Posts.ToList ( ));
         }
 
         // GET: Posts/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details ( int? id )
         {
-            if (id == null)
+            if ( id == null )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult (HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
-            if (post == null)
+            Post post = db.Posts.Find (id);
+            if ( post == null )
             {
-                return HttpNotFound();
+                return HttpNotFound ( );
             }
-            return View(post);
+            return View (post);
         }
 
         // GET: Posts/Create
-        public ActionResult Create()
+        public ActionResult Create ( )
         {
-            return View();
+            return View ( );
         }
 
         // POST: Posts/Create
@@ -46,31 +71,31 @@ namespace ATHNN.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Body,Date")] Post post)
+        public ActionResult Create ( [Bind (Include = "Id,Title,Body,Date")] Post post )
         {
-            if (ModelState.IsValid)
+            if ( ModelState.IsValid )
             {
-                db.Posts.Add(post);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.Posts.Add (post);
+                db.SaveChanges ( );
+                return RedirectToAction ("Index");
             }
 
-            return View(post);
+            return View (post);
         }
 
         // GET: Posts/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit ( int? id )
         {
-            if (id == null)
+            if ( id == null )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult (HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
-            if (post == null)
+            Post post = db.Posts.Find (id);
+            if ( post == null )
             {
-                return HttpNotFound();
+                return HttpNotFound ( );
             }
-            return View(post);
+            return View (post);
         }
 
         // POST: Posts/Edit/5
@@ -78,50 +103,50 @@ namespace ATHNN.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Body,Date")] Post post)
+        public ActionResult Edit ( [Bind (Include = "Id,Title,Body,Date")] Post post )
         {
-            if (ModelState.IsValid)
+            if ( ModelState.IsValid )
             {
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.Entry (post).State = EntityState.Modified;
+                db.SaveChanges ( );
+                return RedirectToAction ("Index");
             }
-            return View(post);
+            return View (post);
         }
 
         // GET: Posts/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete ( int? id )
         {
-            if (id == null)
+            if ( id == null )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult (HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
-            if (post == null)
+            Post post = db.Posts.Find (id);
+            if ( post == null )
             {
-                return HttpNotFound();
+                return HttpNotFound ( );
             }
-            return View(post);
+            return View (post);
         }
 
         // POST: Posts/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName ("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed ( int id )
         {
-            Post post = db.Posts.Find(id);
-            db.Posts.Remove(post);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            Post post = db.Posts.Find (id);
+            db.Posts.Remove (post);
+            db.SaveChanges ( );
+            return RedirectToAction ("Index");
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose ( bool disposing )
         {
-            if (disposing)
+            if ( disposing )
             {
-                db.Dispose();
+                db.Dispose ( );
             }
-            base.Dispose(disposing);
+            base.Dispose (disposing);
         }
     }
 }

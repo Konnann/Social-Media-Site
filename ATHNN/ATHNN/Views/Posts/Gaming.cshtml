@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Gaming";
+
+}
+
+@foreach ( var post in ViewBag.TaggedPosts )
+{
+    <div class="row">
+        <div class="post col-md-6">
+            <h2>@post.Title</h2>
+            <div>
+                Posted on <i>@post.Date</i>
+                @if ( post.Author != null )
+                {
+                    @:by <i>@post.Author.FullName (@post.Author.UserName)</i>
+                }
+            </div>
+            <div class="body">@post.Body</div>
+        </div>
+    </div>
+}

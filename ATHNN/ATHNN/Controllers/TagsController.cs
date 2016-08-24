@@ -17,7 +17,7 @@ namespace ATHNN.Controllers
         // GET: Tags
         public ActionResult Index()
         {
-            return View(db.Tags.ToList());
+            return View();
         }
 
         // GET: Tags/Details/5
