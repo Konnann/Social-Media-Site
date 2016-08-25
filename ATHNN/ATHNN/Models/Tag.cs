@@ -19,6 +19,6 @@ namespace ATHNN.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        public List<Post> Posts { get; set; }
+        public ICollection<Post> Posts { get; set; }
     }
 }

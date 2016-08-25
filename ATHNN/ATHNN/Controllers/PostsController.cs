@@ -17,26 +17,26 @@ namespace ATHNN.Controllers
 
         public ActionResult Gaming ( )
         {
-            string[] tagsForListing = new string[] { "game" };
-         
-           
-            List<Post> taggedPosts = new List<Post>();
-            var posts = db.Posts.ToList();
-            var p = db.Posts.Where(x => x.Id == 2).Include(x => x.Tags);
-            foreach (var post in posts)
+            string[] tagsForListing = new string[] { "game","gaming"};
+
+
+            //List<Post> taggedPosts = new List<Post>();
+            //var posts = db.Posts;
+            ////var p = db.Posts.Where(x => x.Id == 2).Include(x => x.Tags);
+            
+            //Tag tag = db.Tags.Single(t => t.TagId == 4);
+            //var tagPosts = db.Posts.ToList();
+            //tagPosts = tagPosts.Where(p => p.Tags.Contains(tag)).ToList();
+            IQueryable<Post> postByTag =db.Posts;
+            List<Post> posts = new List<Post>();
+            foreach (var tagText in tagsForListing)
             {
-                var postTags = post.Tags;
-                foreach (var postTag in postTags)
-                {
-                    if ( tagsForListing.Contains (postTag.Name) )
-                    {
-                        taggedPosts.Add(post);
-                    }
-                    
-                }
+                posts.AddRange(postByTag.Where(p => p.Tags.Select(t => t.Name).Contains(tagText)).ToList());
             }
-            ViewBag.TaggedPosts = taggedPosts;
-            return View ( );
+            
+            
+            ViewBag.TaggedPosts = posts.Distinct();
+            return View ();
         }
 
         // GET: Posts
@@ -71,12 +71,13 @@ namespace ATHNN.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create ( [Bind (Include = "Id,Title,Body,Date")] Post post )
+        public ActionResult Create ( [Bind (Include = "Id,Title,Body,Date,Tags")] Post post )
         {
             if ( ModelState.IsValid )
             {
+                
                 db.Posts.Add (post);
-                db.SaveChanges ( );
+                db.SaveChanges ();
                 return RedirectToAction ("Index");
             }
 
@@ -103,7 +104,7 @@ namespace ATHNN.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit ( [Bind (Include = "Id,Title,Body,Date")] Post post )
+        public ActionResult Edit ( [Bind (Include = "Id,Title,Body,Date,Tags")] Post post )
         {
             if ( ModelState.IsValid )
             {
