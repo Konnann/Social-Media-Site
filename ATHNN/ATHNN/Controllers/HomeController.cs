@@ -91,6 +91,7 @@ namespace ATHNN.Controllers
 
 
             ViewBag.PostExists = postsExist;
+            TempData["PostExists"] = postsExist;
             ViewBag.TaggedPosts = posts.Distinct ( );
 
             return View ( );

@@ -13,10 +13,14 @@
 
         <div class="row">
             <div class="post col-md-6">
-                <h2>@post.Title</h2>
+                <a href="../Posts/Details/@post.Id">
+                    <h2>
+                        @Html.Raw(post.Title)
+                    </h2>
+                </a>
                 <div>
                     Posted on <i>@post.Date</i>
-                    @if ( post.Author != null )
+                    @if (post.Author != null)
                     {
                         @:by <i>@post.Author.FullName (@post.Author.UserName)</i>
                     }
@@ -27,22 +31,25 @@
                 </div>
                 <div class="body">
 
-
                     @{
-                        if ( ViewBag.PostExists[counter] )
+                        if (ViewBag.PostExists[counter])
                         {
-                            <img src="@post.Body" alt="Sample Image" width="100%" />
+                            <a href="../Posts/Details/@post.Id">
+                                <img src="@post.Body" alt="Sample Image" width="100%"/>
+                            </a>
                         }
                         else
                         {
-                            <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
+                            <a href="../Posts/Details/@post.Id">
+                                <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%"/>
+                            </a>
                         }
                     }
 
-
                 </div>
-                <hr />
+                <hr/>
             </div>
         </div>
-                        }
+        counter++;
+    }
 }
