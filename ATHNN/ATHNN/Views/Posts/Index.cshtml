@@ -20,7 +20,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
-        <th></th>
+        <th>
+            Authors
+        </th>
+        <th>
+            Actions
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -33,6 +38,16 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @if (item.Author != null)
+            {
+                @item.Author.UserName
+            }
+            else
+            {
+                @:няма автор.
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

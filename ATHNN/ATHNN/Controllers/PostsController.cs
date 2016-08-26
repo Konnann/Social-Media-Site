@@ -11,6 +11,7 @@ using ATHNN.Models;
 
 namespace ATHNN.Controllers
 {
+    [ValidateInput(false)]
     public class PostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext ( );
@@ -34,7 +35,6 @@ namespace ATHNN.Controllers
                 posts.AddRange(postByTag.Where(p => p.Tags.Select(t => t.Name).Contains(tagText)).ToList());
             }
             
-            
             ViewBag.TaggedPosts = posts.Distinct();
             return View ();
         }
@@ -42,7 +42,8 @@ namespace ATHNN.Controllers
         // GET: Posts
         public ActionResult Index ( )
         {
-            return View (db.Posts.ToList ( ));
+            var postsWithAuthors = db.Posts.Include(p => p.Author).ToList();
+            return View (postsWithAuthors);
         }
 
         // GET: Posts/Details/5
@@ -75,7 +76,7 @@ namespace ATHNN.Controllers
         {
             if ( ModelState.IsValid )
             {
-                
+                post.Author = db.Users.FirstOrDefault(user => user.UserName == User.Identity.Name);
                 db.Posts.Add (post);
                 db.SaveChanges ();
                 return RedirectToAction ("Index");

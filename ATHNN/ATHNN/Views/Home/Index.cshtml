@@ -4,6 +4,7 @@
 }
 
 @model List<ATHNN.Models.Post>
+<section class="row">
 @foreach (var post in Model)
 {
     <div class="row">
@@ -15,8 +16,13 @@
                 {
                     @:by <i>@post.Author.FullName (@post.Author.UserName)</i>
                 }
+                else
+                {
+                @:by Anonymous
+                }
             </div>
             <div class="body">@Html.Raw(@post.Body)</div>
         </div>
     </div>
 }
+</section>

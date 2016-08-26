@@ -27,7 +27,7 @@ namespace ATHNN.Models
         public DateTime Date { get; set; }
 
         public ApplicationUser Author { get; set; }
-        
+       
         public ICollection<Tag> Tags { get; set; }
     }
 }
