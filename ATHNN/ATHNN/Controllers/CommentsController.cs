@@ -48,10 +48,12 @@ namespace ATHNN.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Text,PostId,AuthorId,AuthorName,Date")] Comment comment)
+        public ActionResult Create([Bind(Include = "Id,Text,PostId,AuthorId,AuthorName")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                comment.Date=DateTime.Now;
+                
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,10 +84,11 @@ namespace ATHNN.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Text,PostId,AuthorId,AuthorName,Date")] Comment comment)
+        public ActionResult Edit([Bind(Include = "Id,Text,PostId,AuthorId,AuthorName")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                comment.Date=DateTime.Now;
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -72,11 +72,12 @@ namespace ATHNN.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create ( [Bind (Include = "Id,Title,Body,Date,Tags")] Post post )
+        public ActionResult Create ( [Bind (Include = "Id,Title,Body,Tags")] Post post )
         {
             if ( ModelState.IsValid )
             {
                 post.Author = db.Users.FirstOrDefault(user => user.UserName == User.Identity.Name);
+                post.Date = DateTime.Now;
                 db.Posts.Add (post);
                 db.SaveChanges ();
                 return RedirectToAction ("Index");
@@ -105,10 +106,11 @@ namespace ATHNN.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit ( [Bind (Include = "Id,Title,Body,Date,Tags")] Post post )
+        public ActionResult Edit ( [Bind (Include = "Id,Title,Body,Tags")] Post post )
         {
             if ( ModelState.IsValid )
             {
+                post.Date=DateTime.Now;
                 db.Entry (post).State = EntityState.Modified;
                 db.SaveChanges ( );
                 return RedirectToAction ("Index");
