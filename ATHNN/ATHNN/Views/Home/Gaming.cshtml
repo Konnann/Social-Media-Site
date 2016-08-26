@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Gaming";
+
+}
+@{
+    int counter = 0;
+
+    foreach ( var post in ViewBag.TaggedPosts )
+    {
+
+        <div class="row">
+            <div class="post col-md-6">
+                <h2>@post.Title</h2>
+                <div>
+                    Posted on <i>@post.Date</i>
+                    @if ( post.Author != null )
+                    {
+                        @:by <i>@post.Author.FullName (@post.Author.UserName)</i>
+                    }
+                    else
+                    {
+                        @:by Anonymous
+                    }
+                </div>
+                <div class="body">
+
+
+                    @{
+                        if ( ViewBag.PostExists[counter] )
+                        {
+                            <img src="@post.Body" alt="Sample Image" width="100%" />
+                        }
+                        else
+                        {
+                            <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
+                        }
+                    }
+
+
+                </div>
+                <hr />
+            </div>
+        </div>
+                        }
+}

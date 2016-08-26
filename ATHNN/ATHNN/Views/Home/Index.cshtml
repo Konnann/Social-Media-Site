@@ -5,24 +5,42 @@
 
 @model List<ATHNN.Models.Post>
 <section class="row">
-@foreach (var post in Model)
-{
-    <div class="row">
-        <div class="post col-md-6">
-            <h2>@post.Title</h2>
-            <div>
-                Posted on <i>@post.Date</i>
-                @if (post.Author != null)
-                {
-                    @:by <i>@post.Author.FullName (@post.Author.UserName)</i>
-                }
-                else
-                {
-                @:by Anonymous
-                }
+    @{
+        int counter = 0;
+        foreach ( var post in Model )
+        {
+            <div class="row">
+                <div class="post col-md-6">
+                    <h2>@post.Title</h2>
+                    <div>
+                        Posted on <i>@post.Date</i>
+                        @if (post.Author != null)
+                        {
+                            @:by <i>@post.Author.FullName (@post.Author.UserName)</i>
+                        }
+                        else
+                        {
+                            @:by Anonymous
+                        }
+                    </div>
+                    <div class="body">
+                        @{
+                            if (ViewBag.PostExists[counter])
+                            {
+                                <img src="@post.Body" alt="Sample Image" width="100%"/>
+                            }
+                            else
+                            {
+                                <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%"/>
+                            }
+                        }
+
+                    </div>
+                    <hr/>
+                </div>
             </div>
-            <div class="body">@Html.Raw(@post.Body)</div>
-        </div>
-    </div>
-}
+            counter++;
+        }
+    }
+
 </section>

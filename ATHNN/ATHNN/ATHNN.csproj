@@ -288,7 +288,7 @@
     <Content Include="Views\Tags\Details.cshtml" />
     <Content Include="Views\Tags\Edit.cshtml" />
     <Content Include="Views\Tags\Index.cshtml" />
-    <Content Include="Views\Posts\Gaming.cshtml" />
+    <Content Include="Views\Home\Gaming.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
