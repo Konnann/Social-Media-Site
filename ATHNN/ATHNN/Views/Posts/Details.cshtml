@@ -49,9 +49,9 @@
                     <div>
                         Posted on <i>@Model.Date.ToString("dd.MM.yyyy")</i>
                         <br/>
-                        @if ( Model.Author != null )
+                        @if (Model.Author != null)
                         {
-                            @:By <i>@Model.Author.FullName (@Model.Author.UserName)</i>
+                            @:By <i>@Model.Author.FullName <strong>(@Model.Author.UserName)</strong></i>
                         }
                         else
                         {

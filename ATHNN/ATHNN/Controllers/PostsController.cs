@@ -17,9 +17,9 @@ namespace ATHNN.Controllers
         private ApplicationDbContext db = new ApplicationDbContext ( );
 
         // GET: Posts
-        public ActionResult Index ( )
+        public ActionResult Index()
         {
-            var postsWithAuthors = db.Posts.Include (p => p.Author).ToList ( );
+            var postsWithAuthors = db.Posts.Include(p => p.Author).ToList();
             return View (postsWithAuthors);
         }
 
@@ -30,7 +30,8 @@ namespace ATHNN.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = db.Posts.Include(p=>p.Author).SingleOrDefault(x=>x.Id==id);
+            
             if (post == null)
             {
                 return HttpNotFound();

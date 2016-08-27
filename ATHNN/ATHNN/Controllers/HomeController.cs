@@ -37,7 +37,7 @@ namespace ATHNN.Controllers
             //var tagPosts = db.Posts.ToList();
             //tagPosts = tagPosts.Where(p => p.Tags.Contains(tag)).ToList();
 
-            IQueryable<Post> postByTag = db.Posts;
+            IQueryable<Post> postByTag = db.Posts.Include(p=>p.Author).OrderByDescending(p=>p.Date);
             List<Post> posts = new List<Post> ( );
             foreach ( var tagText in tagsForListing )
             {
