@@ -22,7 +22,7 @@ namespace ATHNN.Controllers
             return tmp.Scheme == Uri.UriSchemeHttp || tmp.Scheme == Uri.UriSchemeHttps;
         }
 
-        public ActionResult Gaming ( )
+        public ActionResult Gaming ()
         {
             // Listing tagged posts 
 
@@ -44,19 +44,18 @@ namespace ATHNN.Controllers
                 posts.AddRange (postByTag.Where (p => p.Tags.Select (t => t.Name).Contains (tagText)).ToList ( ));
             }
 
-            ViewBag.TaggedPosts = posts.Distinct ( );
 
             //Check if image is existing
-            List<bool> postsExist = new List<bool> ( );
-            foreach ( var post in posts )
+            List<bool> postsExist = new List<bool> ();
+            foreach(var post in posts)
             {
-                if ( IsValidURI (post.Body) )
+                if(IsValidURI(post.Body))
                 {
-                    postsExist.Add (true);
+                    postsExist.Add(true);
                 }
                 else
                 {
-                    postsExist.Add (false);
+                    postsExist.Add(false);
                 }
 
                 /*
@@ -92,9 +91,8 @@ namespace ATHNN.Controllers
 
             ViewBag.PostExists = postsExist;
             TempData["PostExists"] = postsExist;
-            ViewBag.TaggedPosts = posts.Distinct ( );
-
-            return View ( );
+            ViewBag.TaggedPosts = posts.Distinct();
+            return View(posts.ToList());
         }
 
 

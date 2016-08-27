@@ -3,12 +3,14 @@
 }
 @{
     ViewBag.Title = "Gaming";
-
 }
+
+@model List<ATHNN.Models.Post>
+<section class="row">
 @{
     int counter = 0;
 
-    foreach ( var post in ViewBag.TaggedPosts )
+    foreach (var post in ViewBag.TaggedPosts)
     {
 
         <div class="row">
@@ -23,12 +25,14 @@
                     @if (post.Author != null)
                     {
                         @:by <i>@post.Author.FullName (@post.Author.UserName)</i>
-                    }
+                        }
                     else
                     {
                         @:by Anonymous
-                    }
+                        }
+
                 </div>
+
                 <div class="body">
 
                     @{
@@ -53,3 +57,5 @@
         counter++;
     }
 }
+
+</section>

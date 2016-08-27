@@ -49,14 +49,20 @@ namespace ATHNN.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create ( [Bind (Include = "Id,Title,Body,Tags")] Post post )
+    public ActionResult Create ([Bind (Include = "Id,Title,Body,TagString,Tags")] Post post)
     {
-        if ( ModelState.IsValid )
+        if (ModelState.IsValid)
         {
-            post.Author = db.Users.FirstOrDefault (user => user.UserName == User.Identity.Name);
+            
+            List<string> taglist = post.TagString.Split(' ').ToList();
+            foreach (var tagl in taglist)
+            {
+                post.Tags.Add(new Tag() {Name=tagl});
+            }
+            post.Author = db.Users.FirstOrDefault(user => user.UserName == User.Identity.Name);
             post.Date = DateTime.Now;
-            db.Posts.Add (post);
-            db.SaveChanges ( );
+            db.Posts.Add(post);
+            db.SaveChanges();
             return RedirectToAction ("Index");
         }
 
@@ -89,23 +95,23 @@ namespace ATHNN.Controllers
         {
             post.Date = DateTime.Now;
             db.Entry (post).State = EntityState.Modified;
-            db.SaveChanges ( );
+            db.SaveChanges();
             return RedirectToAction ("Index");
         }
         return View (post);
     }
 
     // GET: Posts/Delete/5
-    public ActionResult Delete ( int? id )
+    public ActionResult Delete (int? id)
     {
-        if ( id == null )
+        if (id == null)
         {
             return new HttpStatusCodeResult (HttpStatusCode.BadRequest);
         }
-        Post post = db.Posts.Find (id);
-        if ( post == null )
+        Post post = db.Posts.Find(id);
+        if (post == null)
         {
-            return HttpNotFound ( );
+            return HttpNotFound();
         }
         return View (post);
     }
@@ -113,21 +119,21 @@ namespace ATHNN.Controllers
     // POST: Posts/Delete/5
     [HttpPost, ActionName ("Delete")]
     [ValidateAntiForgeryToken]
-    public ActionResult DeleteConfirmed ( int id )
+    public ActionResult DeleteConfirmed(int id)
     {
-        Post post = db.Posts.Find (id);
-        db.Posts.Remove (post);
-        db.SaveChanges ( );
+        Post post = db.Posts.Find(id);
+        db.Posts.Remove(post);
+        db.SaveChanges();
         return RedirectToAction ("Index");
     }
 
-    protected override void Dispose ( bool disposing )
+    protected override void Dispose(bool disposing)
     {
-        if ( disposing )
+        if (disposing)
         {
-            db.Dispose ( );
+            db.Dispose();
         }
-        base.Dispose (disposing);
+        base.Dispose(disposing);
     }
 }
 }

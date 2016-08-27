@@ -25,6 +25,9 @@ namespace ATHNN.Models
 
         [Required]
         public DateTime Date { get; set; }
+        
+        [Required]
+        public string TagString { get; set; }
 
         public ApplicationUser Author { get; set; }
        
