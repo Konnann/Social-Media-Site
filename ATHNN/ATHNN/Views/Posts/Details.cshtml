@@ -63,13 +63,13 @@
                         @{
                             if (ViewBag.PostExists)
                             {
-                                <a href="../Models/Details/@Model.Id">
+                                <a href="@Model.Body">
                                     <img src="@Model.Body" alt="Sample Image" width="100%" />
                                 </a>
                             }
                             else
                             {
-                                <a href="../Models/Details/@Model.Id">
+                                <a href="https://az853139.vo.msecnd.net/static/images/not-found.png">
                                     <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
                                 </a>
                             }

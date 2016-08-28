@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc.Html;
 
 namespace ATHNN.Models
 {
@@ -74,6 +75,10 @@ namespace ATHNN.Models
         [Display(Name="Username")]
         public string UserName { get; set; }
 
+        [Required]
+        [StringLength(100)]
+        [Display(Name="Fullname")]
+        public string FullName { get; set; }
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
