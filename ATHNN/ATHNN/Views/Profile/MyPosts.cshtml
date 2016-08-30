@@ -15,11 +15,11 @@
             {
                 if (ViewBag.PostExists[counter])
                 {
-                    <li>
+                    <li class="profile-content-cells">
                         <a href="../Posts/Details/@post.Id">
-                            <div>
-                                <div class="post-hover-text">View</div>
-                                <div class="post-hover"></div>
+                            <div class="post-preview">
+                                <div class="post-preview-background"></div>
+                                <div class="post-preview-text">View</div>
                                 <img src="@post.Body" alt="Sample Image" />
                             </div>
                         </a>
@@ -27,11 +27,11 @@
                 }
                 else
                 {
-                    <li>
+                    <li class="profile-content-cells">
                         <a href="../Posts/Details/@post.Id">
                             <div class="post-preview">
-                                <div class="post-hover-text">View</div>
-                                <div class="post-hover"></div>
+                                <div class="post-preview-background"></div>
+                                <div class="post-preview-text">View</div>
                                 <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
                             </div>
                         </a>
