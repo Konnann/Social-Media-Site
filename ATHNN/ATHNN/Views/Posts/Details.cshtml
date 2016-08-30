@@ -64,18 +64,26 @@
                             if (ViewBag.PostExists)
                             {
                                 <a href="@Model.Body">
-                                    <img src="@Model.Body" alt="Sample Image" width="100%" />
+                                    <img src="@Model.Body" alt="Sample Image" width="100%"/>
                                 </a>
                             }
                             else
                             {
                                 <a href="https://az853139.vo.msecnd.net/static/images/not-found.png">
-                                    <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
+                                    <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%"/>
                                 </a>
                             }
                         }
 
-                        </div>
+                    </div>
+                    <div>
+                        Tags:
+                        
+                        @foreach (var tag in Model.TagString.Split(' '))
+                        {
+                            <div>#@tag</div>
+                        }
+                    </div>
                     <hr />
                 </div>
             </div>

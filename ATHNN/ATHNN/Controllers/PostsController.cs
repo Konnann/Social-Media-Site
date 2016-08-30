@@ -113,6 +113,7 @@ namespace ATHNN.Controllers
                 }
                 thisPost.Date = DateTime.Now;
                 thisPost.TagString = post.TagString;
+                thisPost.Author = db.Users.FirstOrDefault(user => user.UserName == User.Identity.Name);
                 db.Entry(thisPost).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction ("Index");
