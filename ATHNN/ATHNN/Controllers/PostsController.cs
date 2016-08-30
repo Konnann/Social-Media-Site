@@ -93,13 +93,28 @@ namespace ATHNN.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit ( [Bind (Include = "Id,Title,Body,Tags")] Post post )
+        public ActionResult Edit ( [Bind (Include = "Id,Title,Body,TagString,Tags")] Post post )
         {
+
+            Post thisPost = this.db.Posts.Include(p => p.Tags).FirstOrDefault(p => p.Id == post.Id);
+                
             if ( ModelState.IsValid )
             {
-                post.Date = DateTime.Now;
-                db.Entry (post).State = EntityState.Modified;
-                db.SaveChanges ( );
+
+                thisPost.Tags.Clear();
+
+                db.SaveChanges();
+
+                List<string> taglist = post.TagString.Split(' ').ToList();
+
+                foreach (var tagl in taglist)
+                {
+                    thisPost.Tags.Add(new Tag() { Name = tagl });
+                }
+                thisPost.Date = DateTime.Now;
+                thisPost.TagString = post.TagString;
+                db.Entry(thisPost).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction ("Index");
             }
             return View (post);
