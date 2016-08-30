@@ -22,6 +22,16 @@ namespace ATHNN.Controllers
             return tmp.Scheme == Uri.UriSchemeHttp || tmp.Scheme == Uri.UriSchemeHttps;
         }
 
+        public static bool IsYouTubeVideo(string url)
+        {
+            string[] URLSplit = url.Split('.').ToArray();
+            if (URLSplit.Contains("youtube"))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public ActionResult Gaming ()
         {
             // Listing tagged posts 
@@ -47,6 +57,7 @@ namespace ATHNN.Controllers
 
             //Check if image is existing
             List<bool> postsExist = new List<bool> ();
+            List<bool> isYoutubeVideo = new List<bool>();
             foreach(var post in posts)
             {
                 if(IsValidURI(post.Body))
@@ -58,6 +69,14 @@ namespace ATHNN.Controllers
                     postsExist.Add(false);
                 }
 
+                if ( IsYouTubeVideo (post.Body))
+                {
+                    isYoutubeVideo.Add(true);
+                }
+                else
+                {
+                    isYoutubeVideo.Add(false);
+                }
                 /*
                     HttpWebResponse response = null;
                     var request = ( HttpWebRequest ) WebRequest.Create (post.Body);
@@ -88,9 +107,8 @@ namespace ATHNN.Controllers
 
             }
 
-
+            ViewBag.IsYoutubeVideo = isYoutubeVideo;
             ViewBag.PostExists = postsExist;
-            TempData["PostExists"] = postsExist;
             ViewBag.TaggedPosts = posts.Distinct();
             return View(posts.ToList());
         }
@@ -102,7 +120,7 @@ namespace ATHNN.Controllers
 
 
             var posts = db.Posts.Include(p => p.Author).OrderByDescending(p => p.Date);
-
+            List<bool> isYoutubeVideo = new List<bool> ( );
             List<bool> postsExist = new List<bool> ( );
             foreach (var post in posts)
             {
@@ -114,8 +132,16 @@ namespace ATHNN.Controllers
                 {
                     postsExist.Add(false);
                 }
+                if ( IsYouTubeVideo (post.Body) )
+                {
+                    isYoutubeVideo.Add (true);
+                }
+                else
+                {
+                    isYoutubeVideo.Add (false);
+                }
             }
-
+            ViewBag.IsYoutubeVideo = isYoutubeVideo;
             ViewBag.SideBarPosts = posts;
             ViewBag.PostExists = postsExist;
             return View(posts.ToList());

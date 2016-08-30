@@ -33,9 +33,21 @@
                         @{
                             if ( ViewBag.PostExists[counter] )
                             {
-                                <a href="../Posts/Details/@post.Id">
-                                     <img src="@post.Body" alt="Sample Image" width="100%"/>
-                                </a>
+                               if ( ViewBag.IsYoutubeVideo[counter] )
+                                {
+                                    <iframe width="470"
+                                            height="264"
+                                            src="@post.Body"
+                                            frameborder="0"
+                                            allowfullscreen></iframe>
+                                }
+                                else
+                                {
+                                    <a href="../Posts/Details/@post.Id">
+                                        <img src="@post.Body" alt="Sample Image" width="100%" />
+                                    </a>
+
+                                }
                             }
                             else
                             {
@@ -48,8 +60,8 @@
                     <hr />
                 </div>
             </div>
-                                counter++;
-                            }
+            counter++;
+        }
     }
 
 </section>
