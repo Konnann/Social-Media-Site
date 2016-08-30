@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "MyPosts";
+}
+
+@model List<ATHNN.Models.Post>
+
+<td>@Html.Partial("ProfileTemplate")</td>
+
+
+<ul class="profile-content">
+    @{
+        int counter = 0;
+        foreach (var post in Model)
+        {
+            {
+                if (ViewBag.PostExists[counter])
+                {
+                    <li>
+                        <a href="../Posts/Details/@post.Id">
+                            <div>
+                                <div class="post-hover-text">View</div>
+                                <div class="post-hover"></div>
+                                <img src="@post.Body" alt="Sample Image" />
+                            </div>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="../Posts/Details/@post.Id">
+                            <div class="post-preview">
+                                <div class="post-hover-text">View</div>
+                                <div class="post-hover"></div>
+                                <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
+                            </div>
+                        </a>
+                    </li>
+                }
+            }
+            counter++;
+        }
+    }
+</ul>
+
+
