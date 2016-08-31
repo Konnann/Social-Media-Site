@@ -1,0 +1,58 @@
+﻿@using System.Drawing;
+@model ATHNN.Models.UserPostViewModel
+@{
+    ViewBag.Title = "ProfileTemplate";
+}
+
+<div id="profile-shared-view">
+    <div id="profile-photo">
+        @{
+            if (Model.CurrentUser.ProfilePicture != null)
+            {
+                // convert the byte array to something we can display
+                string imageBase64 = Convert.ToBase64String(Model.CurrentUser.ProfilePicture);
+                string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+
+                //get image size
+                Image img = Image.FromStream(new System.IO.MemoryStream(Model.CurrentUser.ProfilePicture));
+
+                //check if the image is portrait or landscape to change the way it is displayed
+                if (img.Height >= img.Width)
+                {
+                <img class="image portrait" src="@imageSrc" alt="Sample Image" width="100" height="100" />
+                }
+                else
+                {
+                <img class="image landscape" src="@imageSrc" alt="Sample Image" width="100" height="100" />
+                    }
+                }
+
+            }
+        <div id="upload-picture-profile">
+
+            <div>Upload Picture</div>
+            @using (Html.BeginForm("UploadProfilePicture", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="file" name="file" onchange="this.form.submit()" />
+            }
+        </div>
+    </div>
+    <div id="cover">
+        <div id="cover-upload">
+            <div id="upload-picture-cover">
+                <div>Upload Picture</div>
+                <input type="file" />
+            </div>
+        </div>
+        <div id="menu">
+            <div>
+                <a class="profile-menu-buttons" href="../Profile/MyPosts" type="button">My Posts</a>
+                <a class="profile-menu-buttons" href="../Posts/Create" type="button">Create Post</a>
+                <a class="profile-menu-buttons" href="#" type="button">Followers</a>
+                <a class="profile-menu-buttons" href="../Manage" type="button">Settings</a>
+            </div>
+        </div>
+    </div>
+</div>
+<td>@Html.Partial("MyPosts")</td>
+

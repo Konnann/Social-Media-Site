@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
-
+using System.IO;
 
 namespace ATHNN.Controllers
 {
@@ -14,27 +14,44 @@ namespace ATHNN.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Profile
-        public ActionResult MyPosts()
+        // POST: Profile
+        [HttpPost]
+        [Authorize]
+        public ActionResult UploadProfilePicture(HttpPostedFileBase file)
         {
-            //Select all posts from logged in user
-            var userPosts = db.Posts.Where(p => p.Author.UserName == User.Identity.Name).Include(p => p.Author).OrderByDescending(p => p.Date).ToList();
 
-            List<bool> postsExist = new List<bool>();
-            foreach (var post in userPosts)
+            if (file != null)
             {
-                if (HomeController.IsValidURI(post.Body))
-                {
-                    postsExist.Add(true);
-                }
-                else
-                {
-                    postsExist.Add(false);
-                }
-            }
-            ViewBag.PostExists = postsExist;
-            TempData["PostExists"] = postsExist;
+                //get name of file
+                string name = System.IO.Path.GetFileName(file.FileName);
 
-            return View(userPosts);
+                byte[] image;
+                //copy to byte array so that we can save it in db
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    image = ms.GetBuffer();
+                }
+
+                db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).ProfilePicture = image;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("ProfileTemplate");
+        }
+
+        // GET: Profile/ProfileTemplate
+        public ActionResult ProfileTemplate()
+        {
+            ApplicationUser currentUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            List<Post> userPosts = PostsController.UserPosts(currentUser, db.Posts.Include(p => p.Author).ToList());
+            UserPostViewModel model = new UserPostViewModel
+                                          {
+                                              CurrentUser = currentUser,
+                                              AllPosts = userPosts
+                                          };
+
+            return View(model);
         }
     }
 }

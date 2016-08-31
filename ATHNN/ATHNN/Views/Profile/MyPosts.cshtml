@@ -1,20 +1,19 @@
-﻿@{
+﻿@using ATHNN.Models
+@using ATHNN.Controllers
+@model ATHNN.Models.UserPostViewModel
+@{
     ViewBag.Title = "MyPosts";
 }
-
-@model List<ATHNN.Models.Post>
-
-<td>@Html.Partial("ProfileTemplate")</td>
 
 
 <ul class="profile-content">
     @{
-        int counter = 0;
-        foreach (var post in Model)
+
+        List<Post> posts = Model.AllPosts;
+        foreach (var post in posts)
         {
+            if (HomeController.IsValidURI(post.Body))
             {
-                if (ViewBag.PostExists[counter])
-                {
                     <li class="profile-content-cells">
                         <a href="../Posts/Details/@post.Id">
                             <div class="post-preview">
@@ -38,7 +37,6 @@
                     </li>
                 }
             }
-            counter++;
         }
     }
 </ul>

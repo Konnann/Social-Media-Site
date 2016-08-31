@@ -291,7 +291,7 @@
     <Content Include="Views\Tags\Index.cshtml" />
     <Content Include="Views\Home\Gaming.cshtml" />
     <Content Include="Views\Profile\MyPosts.cshtml" />
-    <Content Include="Views\Shared\ProfileTemplate.cshtml" />
+    <Content Include="Views\Profile\ProfileTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -50,11 +50,104 @@ textarea {
 
 }
 
+#profile-photo {
+    position: absolute;
+    top: 230px;  
+    margin-left: 70px;
+    height: 270px;
+    width: 270px;
+   
+    border: solid;
+    border-color: white;
+    border-radius: 5px;
+    background-color: #dcdcdc;
+    z-index: 3;
+    overflow: hidden;
+}
+
+#profile-photo:hover #upload-picture-profile>div{
+    opacity: 1;
+}
+
+#upload-picture-profile {
+  margin-left: 165px;
+  color: white;
+  font-weight:400;
+}
+
+#upload-picture-profile input {
+    width: 93px;
+    opacity: 0;
+}
+
+#upload-picture-profile div {
+    position: absolute;
+    opacity: 0;
+
+}
+
+#upload-picture-profile:hover{
+    font-style: italic;
+    font-weight:400;
+    color: #888;
+}
+#upload-picture-profile:active{
+    font-style: italic;
+    color: black;
+}
+
 #cover { 
     margin: auto 0px;
     height: 400px;
-    width: inherit;
+    width: auto;
     background-color: #dcdcdc;
+}
+
+#upload-picture-cover {    
+    margin-left: 10px;
+    color: white;
+    font-size: 20px;
+    font-weight:400;
+}
+
+#cover:hover #upload-picture-cover>div{
+    opacity: 1;
+}
+
+
+#upload-picture-cover input {
+    width: 93px;
+    opacity: 0;
+}
+
+#upload-picture-cover div {
+    position: absolute;
+    opacity: 0;
+
+}
+
+#upload-picture-cover:hover{
+    font-style: italic;
+    color: #888;
+}
+
+#upload-picture-cover:active{
+    font-style: italic;
+    color: black;
+}
+
+.image {
+    position: absolute;
+}
+
+.landscape {
+    height: inherit;
+    width: auto;
+    align-content: center;
+}
+.portrait {
+    width:inherit;
+    height: auto;
 }
 
 #menu {
@@ -85,20 +178,6 @@ a.profile-menu-buttons:link, a.profile-menu-buttons:visited {
 
 a.profile-menu-buttons:hover, a.profile-menu-buttons:active {
     color: white;
-}
-
-#profile-photo {
-    position: absolute;
-    top: 230px;  
-    margin-left: 70px;
-    height: 270px;
-    width: 270px;
-   
-    border: solid;
-    border-color: white;
-    border-radius: 5px;
-    background-color: #dcdcdc;
-    z-index: 3;
 }
 
 .profile-content {

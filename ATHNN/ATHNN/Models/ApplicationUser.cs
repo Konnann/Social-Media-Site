@@ -20,6 +20,7 @@ namespace ATHNN.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public byte[] ProfilePicture { get; set; }
     }
 
 }

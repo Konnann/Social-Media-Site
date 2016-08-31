@@ -5,6 +5,13 @@ using Microsoft.Owin.Security;
 
 namespace ATHNN.Models
 {
+
+    public class UserPostViewModel
+    {
+        public ApplicationUser CurrentUser { get; set; }
+        public List<Post> AllPosts { get; set; }
+    }
+
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }

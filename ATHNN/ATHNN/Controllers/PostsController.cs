@@ -14,7 +14,15 @@ namespace ATHNN.Controllers
     [ValidateInput (false)]
     public class PostsController : Controller
     {
+
         private ApplicationDbContext db = new ApplicationDbContext ( );
+
+        static public List<Post> UserPosts(ApplicationUser currentUser, List<Post> allPosts)
+        {
+            List<Post> postsWithAuthors = allPosts.Where(p => p.Author != null).ToList();
+            List<Post> userPosts = allPosts.Where(p => p.Author.UserName == currentUser.UserName).OrderByDescending(p => p.Date).ToList();
+            return (userPosts);
+        }
 
         // GET: Posts
         public ActionResult Index()
