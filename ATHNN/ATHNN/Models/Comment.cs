@@ -18,10 +18,10 @@ namespace ATHNN.Models
         [Required]
         public int PostId { get; set; }
 
-        //[Required]
+        [Required]
         public int AuthorId { get; set; }
 
-        //[Required]
+        [Required]
         public string AuthorName { get; set; }
 
 

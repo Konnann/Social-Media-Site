@@ -30,8 +30,7 @@ namespace ATHNN.Models
         public string TagString { get; set; }
 
         public ApplicationUser Author { get; set; }
-        public List<Comment> Comments { get; set; }
-
+       
         public ICollection<Tag> Tags { get; set; }
     }
 }
