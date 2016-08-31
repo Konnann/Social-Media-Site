@@ -21,7 +21,7 @@
                         </h2>
                     </a>
                     <div>
-                        Posted on <i>@post.Date.ToString ("dd.MM.yyyy")</i>
+                        Posted on <i>@post.Date.ToString("dd.MM.yyyy")</i>
                         @if ( post.Author != null )
                         {
                             @:by <i>@post.Author.FullName <strong>(@post.Author.UserName)</strong></i>
@@ -42,7 +42,7 @@
                                 {
                                     <a href="../Posts/Details/@post.Id">
                                         <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
-                                    </a>>
+                                    </a>
                                 }
                                 else
                                 {

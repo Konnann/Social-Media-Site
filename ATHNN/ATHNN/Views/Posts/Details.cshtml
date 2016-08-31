@@ -1,23 +1,11 @@
-﻿@using Microsoft.ApplicationInsights.Extensibility.Implementation
+﻿@using ATHNN.Controllers
+@using Microsoft.ApplicationInsights.Extensibility.Implementation
 @using Microsoft.AspNet.Identity
 @model ATHNN.Models.Post
 
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
-<div id="fb-root"></div>
-<script>
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
 
 <section class="row">
                 <div class="row">
@@ -26,29 +14,17 @@
                     <h2>
                         @Html.DisplayFor(model => model.Title)
                     </h2>
-                   
+
                     <div class="share-bar" style="padding-top: 2px; float: right;">
-
-                        <div class="fb-share-button" data-href="@HttpContext.Current.Request.Url.AbsoluteUri" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
-
-
-                        
-                        <a href="javascript:window.open('http://www.facebook.com/sharer.php?u=@HttpContext.Current.Request.Url.AbsoluteUri', 'yourWindowName', 'width=200,height=150');"
-                           target="_blank"
-                           title="SHARE">
-                            <img class="img.responsive" style="height: 40px;" src="https://cdn0.iconfinder.com/data/icons/social-flat-rounded-rects/512/facebook-256.png"
-                           alt="Sample image"/>
-                        </a>
-
-                        <a href="javascript:window.open('http://twitter.com/share?@HttpContext.Current.Request.Url.AbsoluteUri', 'yourWindowName', 'width=600,height=450');"
-                           target="_blank"
-                           title="SHARE">
-                            <img class="img.responsive" style="height: 40px; " src="https://cdn0.iconfinder.com/data/icons/social-flat-rounded-rects/512/twitter_letter-512.png" alt="Sample image" />
+                         <a href="javascript:window.open('http://twitter.com/share?@HttpContext.Current.Request.Url.AbsoluteUri', 'yourWindowName', 'width=600,height=450');"
+                                 target="_blank"
+                                 title="SHARE">
+                            <img class="img.responsive" style="height: 40px;" src="https://cdn0.iconfinder.com/data/icons/social-flat-rounded-rects/512/twitter_letter-512.png" alt="Sample image"/>
                         </a>
                     </div>
 
                     <div>
-                        Posted on <i>@Model.Date.ToString("dd.MM.yyyy")</i>
+                        Posted on <i><strong>@Model.Date.ToString("dd.MM.yyyy")</strong></i>
                         <br/>
                         @if (Model.Author != null)
                         {
@@ -58,10 +34,10 @@
                         {
                             @:By Anonymous
                         }
-                        <hr/>
+                       
                     </div>
                     <div class="body">
-                        @{
+                        @{ 
                             if (ViewBag.PostExists)
                             {
                                 <a href="@Model.Body">
@@ -77,32 +53,40 @@
                         }
 
                     </div>
-                    <div>
-                        Tags:
+                    <div style="border-bottom: 1px solid rgba(0,0,0,0.1)">
+                        <div style="padding-bottom: 2px;"><strong>Tags:</strong></div>
                         
                         @foreach (var tag in Model.TagString.Split(' '))
                         {
-                            <div>#@tag</div>
+                            <div style="padding-left: 3px; padding-right: 3px; display: inline-block; border-radius: 5px 10px 5px 10px; border: 2px solid black;"><strong>@tag</strong></div>
                         }
                     </div>
+
                     <div>
-                        Comments:
+                        <div><h4> @Model.Comments.Count Comments: </h4></div>
                         @foreach (var cm in Model.Comments)
                         {
-                            <li>@Html.DisplayFor(model => cm.Text)
-                                Posted on <i>@cm.Date</i>
-                        @if (cm.Author != null)
-                        {
-                            @:By <i>@cm.Author.FullName <strong>(@cm.Author.UserName)</strong></i>
-                        }
-                        else
-                        {
-                            @:By Anonymous
-                        }
-                            </li>
+                            <div style="border-bottom: 1px solid rgba(0, 0, 0, 0.1); margin-bottom: 5px; ">
+                                @if (cm.Author != null)
+                                {
+                                <div>
+                                    <strong>@cm.Author.FullName</strong>
+                                </div>
+                                }
+                                else
+                                {
+                                @:By Anonymous
+                                }
+                                <div>@cm.Text</div>
+
+                                <div style="font-size: x-small;">
+                                    Posted on <i>@cm.Date.ToString("dd.MM.yyyy")</i>
+                                </div>
+                                
+                            </div>
                         }
                     </div>
-                    <hr />
+             
                 </div>
             </div>
 
