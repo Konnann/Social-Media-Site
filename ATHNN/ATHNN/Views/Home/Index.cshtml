@@ -18,7 +18,7 @@
                         </h2>
                     </a>
                     <div>
-                        Posted on <i>@post.Date</i>
+                        Posted on <i><strong>@post.Date.ToString("dd.MM.yyyy")</strong></i>
                         @if ( post.Author != null )
                         {
                             @:by <i>@post.Author.FullName <strong>(@post.Author.UserName)</strong></i>
@@ -31,15 +31,13 @@
                     </div>
                     <div class="body">
                         @{
-                            if (ViewBag.PostExists[counter])
+                            if ( ViewBag.PostExists[counter] )
                             {
-                                if (ViewBag.IsYoutubeVideo[counter])
+                                if ( ViewBag.IsYoutubeVideo[counter] )
                                 {
-                                    <iframe width="470"
-                                            height="264"
-                                            src="@post.Body"
-                                            frameborder="0"
-                                            allowfullscreen></iframe>
+                                    <a href="../Posts/Details/@post.Id">
+                                        <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
+                                    </a>
                                 }
                                 else
                                 {
