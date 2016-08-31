@@ -31,10 +31,10 @@ namespace ATHNN.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Post post = db.Posts.Include(p => p.Author).Include(p => p.Comments).SingleOrDefault(x => x.Id == id);
-            var comments = db.Comments.Where(cm => cm.PostId == post.Id).OrderByDescending(cm => cm.Date).ToList();
+            var comments = db.Comments.Include(p=>p.Author).Where(cm => cm.PostId == post.Id).OrderByDescending(cm => cm.Date).ToList();
             post.Comments = comments;
-
-            if (post == null)
+            
+            if(post == null)
             {
                 return HttpNotFound();
             }

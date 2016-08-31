@@ -90,9 +90,16 @@
                         @foreach (var cm in Model.Comments)
                         {
                             <li>@Html.DisplayFor(model => cm.Text)
-
-                        </li>
-                            
+                                Posted on <i>@cm.Date</i>
+                        @if (cm.Author != null)
+                        {
+                            @:By <i>@cm.Author.FullName <strong>(@cm.Author.UserName)</strong></i>
+                        }
+                        else
+                        {
+                            @:By Anonymous
+                        }
+                            </li>
                         }
                     </div>
                     <hr />
