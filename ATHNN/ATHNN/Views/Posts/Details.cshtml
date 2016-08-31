@@ -1,4 +1,5 @@
 ﻿@using Microsoft.ApplicationInsights.Extensibility.Implementation
+@using Microsoft.AspNet.Identity
 @model ATHNN.Models.Post
 
 @{
@@ -84,12 +85,25 @@
                             <div>#@tag</div>
                         }
                     </div>
+                    <div>
+                        Comments:
+                        @foreach (var cm in Model.Comments)
+                        {
+                            <li>@Html.DisplayFor(model => cm.Text)
+
+                        </li>
+                            
+                        }
+                    </div>
                     <hr />
                 </div>
             </div>
 
 </section>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @if (@Model.Author.Id == User.Identity.GetUserId())
+    {
+        @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) @:|
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>
