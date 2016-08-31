@@ -234,3 +234,16 @@ a.profile-menu-buttons:hover, a.profile-menu-buttons:active {
     background-color: black;
 
 }
+
+.btn-primary1 {
+    color: #ffffff;
+    background-color: #222222;
+    border-color: #080808;
+}
+
+.topFiveCommented {
+    background: #EEE;
+    padding: 10px;
+    margin: 0;
+    float: right;
+}

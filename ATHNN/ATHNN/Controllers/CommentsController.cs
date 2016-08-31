@@ -15,6 +15,7 @@ namespace ATHNN.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Comments
+        [Authorize]
         public ActionResult Index()
         {
             var comments = db.Comments.Include(c => c.Post);
@@ -22,6 +23,7 @@ namespace ATHNN.Controllers
         }
 
         // GET: Comments/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace ATHNN.Controllers
         }
 
         // GET: Comments/Create
+        [Authorize]
         public ActionResult Create(int id)
         {
             Comment cm =
@@ -52,6 +55,7 @@ namespace ATHNN.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind] Comment comment)
         {
@@ -69,6 +73,7 @@ namespace ATHNN.Controllers
         }
 
         // GET: Comments/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -88,6 +93,7 @@ namespace ATHNN.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind] Comment comment)
         {
@@ -103,6 +109,7 @@ namespace ATHNN.Controllers
         }
 
         // GET: Comments/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -119,6 +126,7 @@ namespace ATHNN.Controllers
 
         // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

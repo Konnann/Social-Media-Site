@@ -8,6 +8,7 @@ using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 using ATHNN.Models;
+using Microsoft.Owin.Security.OAuth.Messages;
 
 namespace ATHNN.Controllers
 {
@@ -25,6 +26,7 @@ namespace ATHNN.Controllers
         }
 
         // GET: Posts
+        [Authorize]
         public ActionResult Index()
         {
             var postsWithAuthors = db.Posts.Include(p => p.Author).ToList();
@@ -53,6 +55,7 @@ namespace ATHNN.Controllers
         }
 
         // GET: Posts/Create
+        [Authorize]
         public ActionResult Create ( )
         {
             return View ( );
@@ -62,6 +65,7 @@ namespace ATHNN.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create ( [Bind (Include = "Id,Title,Body,TagString,Tags")] Post post )
         {
@@ -84,6 +88,7 @@ namespace ATHNN.Controllers
         }
 
         // GET: Posts/Edit/5
+        [Authorize]
         public ActionResult Edit ( int? id )
         {
             if ( id == null )
@@ -102,6 +107,7 @@ namespace ATHNN.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit ( [Bind (Include = "Id,Title,Body,TagString,Tags")] Post post )
         {
@@ -121,17 +127,20 @@ namespace ATHNN.Controllers
                 {
                     thisPost.Tags.Add(new Tag() { Name = tagl });
                 }
+                thisPost.Title = post.Title;
+                thisPost.Body = post.Body;
                 thisPost.Date = DateTime.Now;
                 thisPost.TagString = post.TagString;
                 thisPost.Author = db.Users.FirstOrDefault(user => user.UserName == User.Identity.Name);
                 db.Entry(thisPost).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction ("Index");
+                return RedirectToAction ("Index","Home");
             }
             return View (post);
         }
 
         // GET: Posts/Delete/5
+        [Authorize]
         public ActionResult Delete ( int? id )
         {
             if ( id == null )
@@ -148,6 +157,7 @@ namespace ATHNN.Controllers
 
         // POST: Posts/Delete/5
         [HttpPost, ActionName ("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed ( int id )
         {

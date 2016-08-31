@@ -70,7 +70,7 @@
                                 @if (cm.Author != null)
                                 {
                                 <div>
-                                    <strong>@cm.Author.FullName</strong>
+                                    <strong>@cm.Author.FullName</strong> (<i><strong>@cm.Author.UserName</strong></i>)
                                 </div>
                                 }
                                 else
@@ -96,5 +96,6 @@
     {
         @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) @:|
     }
+    <a href="../../Comments/Create/@Model.Id">Add new comment</a>
     @Html.ActionLink("Back to List", "Index")
 </p>

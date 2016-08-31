@@ -120,6 +120,11 @@ namespace ATHNN.Controllers
 
 
             var posts = db.Posts.Include(p => p.Author).OrderByDescending(p => p.Date);
+            var topFiveCommentedPosts =
+                db.Posts.Include(p => p.Comments).
+                OrderByDescending(p=>p.Comments.Count).
+                Take(5);
+            ViewBag.TopFiveCommented = topFiveCommentedPosts;
             List<bool> isYoutubeVideo = new List<bool> ( );
             List<bool> postsExist = new List<bool> ( );
             foreach (var post in posts)

@@ -1,10 +1,11 @@
-﻿@model IEnumerable<ATHNN.Models.Post>
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<ATHNN.Models.Post>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>All Posts</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -50,9 +51,15 @@
             }
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @if (item.Author.UserName == User.Identity.GetUserName())
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new {@class="btn btn-success"})
+            }
+            @if (item.Author.UserName == User.Identity.GetUserName())
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id },new {@class="btn btn-danger"})
+            }
+            @Html.ActionLink("Details", "Details", new {id = item.Id}, new {@class="btn btn-info"})
         </td>
     </tr>
 }
