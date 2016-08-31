@@ -36,11 +36,14 @@ namespace ATHNN.Controllers
             return View(comment);
         }
 
-        // GET: Comments/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            ViewBag.PostId = new SelectList(db.Posts, "Id", "Title");
-            return View();
+            Comment cm = new Comment
+            {
+                PostId = id,
+            };
+            //ViewBag.PostId = new SelectList(db.Posts, "Id", "Title");
+            return View(cm);
         }
 
         // POST: Comments/Create
@@ -48,12 +51,14 @@ namespace ATHNN.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Text,PostId")] Comment comment)
+        public ActionResult Create([Bind] Comment comment)
         {
             if (ModelState.IsValid)
             {
-                comment.Date=DateTime.Now;
-                
+
+                comment.Date = DateTime.Now;
+                comment.Author = db.Users.FirstOrDefault(user => user.UserName == User.Identity.Name);
+
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");

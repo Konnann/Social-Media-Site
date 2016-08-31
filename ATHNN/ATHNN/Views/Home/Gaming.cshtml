@@ -36,9 +36,9 @@
                     <div class="body">
 
                         @{
-                            if ( ViewBag.PostExists[counter] )
+                            if (ViewBag.PostExists[counter])
                             {
-                                if ( ViewBag.IsYoutubeVideo[counter] )
+                                if (ViewBag.IsYoutubeVideo[counter])
                                 {
                                     <iframe width="470"
                                             height="264"
@@ -49,7 +49,7 @@
                                 else
                                 {
                                     <a href="../Posts/Details/@post.Id">
-                                        <img src="@post.Body" alt="Sample Image" width="100%" />
+                                        <img src="@post.Body" alt="Sample Image" width="100%"/>
                                     </a>
 
                                 }
@@ -58,11 +58,14 @@
                             else
                             {
                                 <a href="../Posts/Details/@post.Id">
-                                    <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
+                                    <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%"/>
                                 </a>
                             }
                         }
 
+                    </div>
+                    <div>
+                        <a href="../Comments/Create/@post.Id">Add new comment</a>
                     </div>
                     <hr />
                 </div>
