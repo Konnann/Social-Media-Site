@@ -97,10 +97,13 @@ textarea {
 }
 
 #cover { 
+    position: relative;
     margin: auto 0px;
     height: 400px;
-    width: auto;
+    width: 1140px;
     background-color: #dcdcdc;
+    overflow: hidden;
+    z-index:2;
 }
 
 #upload-picture-cover {    
@@ -149,6 +152,12 @@ textarea {
     width:inherit;
     height: auto;
 }
+
+.landscape-cover{
+    width: inherit;
+    height: auto;
+}
+
 
 #menu {
     background-color: black;

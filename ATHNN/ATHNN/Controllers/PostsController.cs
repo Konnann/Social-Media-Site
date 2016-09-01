@@ -20,7 +20,10 @@ namespace ATHNN.Controllers
 
         static public List<Post> UserPosts(ApplicationUser currentUser, List<Post> allPosts)
         {
+            //exclude posts without authors to evade null reference error
             List<Post> postsWithAuthors = allPosts.Where(p => p.Author != null).ToList();
+
+            //check remaining posts
             List<Post> userPosts = allPosts.Where(p => p.Author.UserName == currentUser.UserName).OrderByDescending(p => p.Date).ToList();
             return (userPosts);
         }

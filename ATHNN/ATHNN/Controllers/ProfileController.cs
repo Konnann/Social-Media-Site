@@ -17,23 +17,46 @@ namespace ATHNN.Controllers
         // POST: Profile
         [HttpPost]
         [Authorize]
-        public ActionResult UploadProfilePicture(HttpPostedFileBase file)
+        public ActionResult UploadProfilePicture(HttpPostedFileBase profileImage)
         {
 
-            if (file != null)
+            if (profileImage != null)
             {
                 //get name of file
-                string name = System.IO.Path.GetFileName(file.FileName);
+                string name = System.IO.Path.GetFileName(profileImage.FileName);
 
                 byte[] image;
                 //copy to byte array so that we can save it in db
                 using (MemoryStream ms = new MemoryStream())
                 {
-                    file.InputStream.CopyTo(ms);
+                    profileImage.InputStream.CopyTo(ms);
                     image = ms.GetBuffer();
                 }
 
                 db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).ProfilePicture = image;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("ProfileTemplate");
+        }
+
+        public ActionResult UploadCoverPicture(HttpPostedFileBase coverImage)
+        {
+
+            if (coverImage != null)
+            {
+                //get name of file
+                string name = System.IO.Path.GetFileName(coverImage.FileName);
+
+                byte[] image;
+                //copy to byte array so that we can save it in db
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    coverImage.InputStream.CopyTo(ms);
+                    image = ms.GetBuffer();
+                }
+
+                db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).CoverPicture = image;
                 db.SaveChanges();
             }
 

@@ -21,6 +21,8 @@ namespace ATHNN.Models
             return userIdentity;
         }
         public byte[] ProfilePicture { get; set; }
+        public byte[] CoverPicture { get; set; }
+
     }
 
 }

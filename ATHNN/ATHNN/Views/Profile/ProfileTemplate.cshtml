@@ -26,8 +26,9 @@
                 <img class="image landscape" src="@imageSrc" alt="Sample Image" width="100" height="100" />
                     }
                 }
-
             }
+
+
         <div id="upload-picture-profile">
 
             <div>Upload Picture</div>
@@ -38,10 +39,28 @@
         </div>
     </div>
     <div id="cover">
+        @{
+            if (Model.CurrentUser.CoverPicture != null)
+            {
+                // convert the byte array to something we can display
+                string imageBase64 = Convert.ToBase64String(Model.CurrentUser.CoverPicture);
+                string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+
+                //get image size
+                Image img = Image.FromStream(new System.IO.MemoryStream(Model.CurrentUser.CoverPicture));
+
+                //check if the image is portrait or landscape to change the way it is displayed
+
+                <img class="image landscape-cover" src="@imageSrc" alt="Sample Image" width="100" height="100" />
+            }
+        }
         <div id="cover-upload">
             <div id="upload-picture-cover">
                 <div>Upload Picture</div>
-                <input type="file" />
+                @using (Html.BeginForm("UploadCoverPicture", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="file" name="coverImage" onchange="this.form.submit()" />
+                }
             </div>
         </div>
         <div id="menu">
