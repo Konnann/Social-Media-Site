@@ -242,6 +242,7 @@ a.profile-menu-buttons:hover, a.profile-menu-buttons:active {
 }
 
 .topFiveCommented {
+    margin-top: 30px;
     background: #EEE;
     padding: 10px;
     margin: 0;

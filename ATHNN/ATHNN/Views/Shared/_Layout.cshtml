@@ -21,7 +21,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Gaming","Gaming","Home")</li>
+                    <li>@Html.ActionLink("Gaming", "Gaming", "Home")</li>
+                    <li>@Html.ActionLink("Create New Post","Create","Posts")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -32,6 +33,21 @@
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - A team has no name app</p>
+
+            <div class="col-md-4">
+                <p>Developers</p>
+                <li>Konan</li>
+                <li>KamenPetrovv</li>
+                <li>salex</li>
+                <li>failfmi</li>
+            </div>
+            <div class="col-md-6">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2933.7494573265208!2d23.348494815008543!3d42.66666442367692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa85cb55c36753%3A0xbde203f1e5db85d1!2z0YPQuy4g4oCe0KLQuNC90YLRj9Cy0LDigJwgMTUtMTcsIDExMTMg0KHQvtGE0LjRjw!5e0!3m2!1sbg!2sbg!4v1472300758046" width="450" height="160" frameborder="0" style="border: 0; margin-top: 1.5em; box-shadow: 0px 2px 5px 4px #fff;" allowfullscreen></iframe>
+            </div>
+            <div class="col-md-1">
+                <a href="http://softuni.bg" class="btn btn-primary1">SoftUni</a>
+                <a href="https://github.com/failfmi/ATHNN" class="btn btn-primary1">Git</a>
+            </div>
         </footer>
     </div>
 

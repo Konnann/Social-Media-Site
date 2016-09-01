@@ -96,6 +96,10 @@
     {
         @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) @:|
     }
-    <a href="../../Comments/Create/@Model.Id">Add new comment</a>
+    @if (@Model.Author.Id == User.Identity.GetUserId())
+    {
+        @Html.ActionLink("Delete","Delete",new {id=Model.Id}) @:|
+    }
+    <a href="../../Comments/Create/@Model.Id">Add new comment</a> |
     @Html.ActionLink("Back to List", "Index")
 </p>

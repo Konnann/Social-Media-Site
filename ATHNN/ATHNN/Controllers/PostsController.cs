@@ -81,7 +81,7 @@ namespace ATHNN.Controllers
                 post.Date = DateTime.Now;
                 db.Posts.Add (post);
                 db.SaveChanges ( );
-                return RedirectToAction ("Index");
+                return RedirectToAction ("Index","Home");
             }
 
             return View (post);
