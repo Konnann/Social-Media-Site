@@ -36,12 +36,12 @@
                     <div class="body">
 
                         @{
-                            if ( ViewBag.PostExists[counter] )
+                            if (ViewBag.PostExists[counter])
                             {
-                                if ( ViewBag.IsYoutubeVideo[counter] )
+                                if (ViewBag.IsYoutubeVideo[counter])
                                 {
                                     <a href="../Posts/Details/@post.Id">
-                                        <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
+                                        <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%"/>
                                     </a>
                                 }
                                 else
@@ -62,8 +62,24 @@
                         }
 
                     </div>
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <div id="number-of-likes"> @post.Likes</div>
+                        <div>
+                            @using (Html.BeginForm("LikePost", "Posts", FormMethod.Post, new { }))
+                            {
+                                <input type="hidden" name="postid" value="@post.Id">
+                                <button class="btn btn-default like" name="data" type="submit" onchange="this.form.submit()">❤</button>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="likes">Likes: @post.Likes</div>
+                    }
                     <div>
-                        <a href="../Comments/Create/@post.Id" clas="btn btn-default">Add new comment</a>
+                        <a href="../Comments/Create/@post.Id" class="btn btn-default">Add new comment</a>
                     </div>
                     <hr />
                 </div>

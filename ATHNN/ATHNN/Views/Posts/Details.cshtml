@@ -37,7 +37,7 @@
                        
                     </div>
                     <div class="body">
-                        @{ 
+                        @{
                             if (ViewBag.PostExists)
                             {
                                 <a href="@Model.Body">
@@ -53,6 +53,21 @@
                         }
 
                     </div>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <div id="number-of-likes"> @Model.Likes</div>
+                            <div>
+                                @using (Html.BeginForm("LikePost", "Posts", FormMethod.Post, new { }))
+                                {
+                                    <input type="hidden" name="postid" value="@Model.Id">
+                                    <button class="btn btn-default like" name="data" type="submit" onchange="this.form.submit()">❤</button>
+                                }
+                            </div>
+                    }
+                    else
+                    {
+                        <div id="likes">Likes: @Model.Likes</div>
+                    }
                     <div style="border-bottom: 1px solid rgba(0,0,0,0.1)">
                         <div style="padding-bottom: 2px;"><strong>Tags:</strong></div>
                         
@@ -63,29 +78,33 @@
                     </div>
 
                     <div>
-                        <div><h4> @Model.Comments.Count Comments: </h4></div>
+                        <div><h4> @Model.Comments.Count Comments: </h4>
+                        </div>
+                       
                         @foreach (var cm in Model.Comments)
                         {
-                            <div style="border-bottom: 1px solid rgba(0, 0, 0, 0.1); margin-bottom: 5px; ">
+                            <div style="border-bottom: 1px solid rgba(0, 0, 0, 0.1); margin-bottom: 5px;">
                                 @if (cm.Author != null)
                                 {
-                                <div>
-                                    <strong>@cm.Author.FullName</strong> (<i><strong>@cm.Author.UserName</strong></i>)
-                                </div>
+                                    <div>
+                                        <strong>@cm.Author.FullName</strong> (<i><strong>@cm.Author.UserName</strong></i>)
+                                    </div>
                                 }
                                 else
                                 {
-                                @:By Anonymous
+                                    @:By Anonymous
                                 }
                                 <div>@cm.Text</div>
 
                                 <div style="font-size: x-small;">
                                     Posted on <i>@cm.Date.ToString("dd.MM.yyyy")</i>
                                 </div>
-                                
+
                             </div>
                         }
                     </div>
+
+                    
              
                 </div>
             </div>

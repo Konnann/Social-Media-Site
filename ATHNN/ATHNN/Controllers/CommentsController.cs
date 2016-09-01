@@ -66,7 +66,7 @@ namespace ATHNN.Controllers
                 comment.Author = db.Users.FirstOrDefault(user => user.UserName == User.Identity.Name);
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","Posts",new { id=comment.PostId});
             }
 
             ViewBag.PostId = new SelectList(db.Posts, "Id", "Title", comment.PostId);
