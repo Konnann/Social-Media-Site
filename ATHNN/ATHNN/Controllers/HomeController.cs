@@ -38,22 +38,12 @@ namespace ATHNN.Controllers
 
             string[] tagsForListing = new string[] { "game", "gaming" };
 
-
-            //List<Post> taggedPosts = new List<Post>();
-            //var posts = db.Posts;
-            ////var p = db.Posts.Where(x => x.Id == 2).Include(x => x.Tags);
-
-            //Tag tag = db.Tags.Single(t => t.TagId == 4);
-            //var tagPosts = db.Posts.ToList();
-            //tagPosts = tagPosts.Where(p => p.Tags.Contains(tag)).ToList();
-
             IQueryable<Post> postByTag = db.Posts.Include(p=>p.Author).OrderByDescending(p=>p.Date);
             List<Post> posts = new List<Post> ( );
             foreach ( var tagText in tagsForListing )
             {
                 posts.AddRange (postByTag.Where (p => p.Tags.Select (t => t.Name).Contains (tagText)).ToList ( ));
             }
-
 
             //Check if image is existing
             List<bool> postsExist = new List<bool> ();
@@ -77,34 +67,6 @@ namespace ATHNN.Controllers
                 {
                     isYoutubeVideo.Add(false);
                 }
-                /*
-                    HttpWebResponse response = null;
-                    var request = ( HttpWebRequest ) WebRequest.Create (post.Body);
-                    request.Method = "HEAD";
-
-
-                    try
-                    {
-                        response = ( HttpWebResponse ) request.GetResponse ( );
-                        postsExist.Add (true);
-                    }
-                    catch ( WebException ex )
-                    {
-
-
-                    postsExist.Add (false);
-                }
-                    finally
-                {
-                    // Don't forget to close your response.
-                    if ( response != null )
-                    {
-                        response.Close ( );
-                    }
-
-                }
-                */
-
             }
 
             ViewBag.IsYoutubeVideo = isYoutubeVideo;
@@ -113,12 +75,93 @@ namespace ATHNN.Controllers
             return View(posts.ToList());
         }
 
+        public ActionResult SoftUni()
+        {
+            // Listing tagged posts 
+
+            string[] tagsForListing = new string[] { "softuni", "software","university" };
+
+            IQueryable<Post> postByTag = db.Posts.Include(p => p.Author).OrderByDescending(p => p.Date);
+            List<Post> posts = new List<Post>();
+            foreach (var tagText in tagsForListing)
+            {
+                posts.AddRange(postByTag.Where(p => p.Tags.Select(t => t.Name).Contains(tagText)).ToList());
+            }
+
+            //Check if image is existing
+            List<bool> postsExist = new List<bool>();
+            List<bool> isYoutubeVideo = new List<bool>();
+            foreach (var post in posts)
+            {
+                if (IsValidURI(post.Body))
+                {
+                    postsExist.Add(true);
+                }
+                else
+                {
+                    postsExist.Add(false);
+                }
+
+                if (IsYouTubeVideo(post.Body))
+                {
+                    isYoutubeVideo.Add(true);
+                }
+                else
+                {
+                    isYoutubeVideo.Add(false);
+                }
+            }
+
+            ViewBag.IsYoutubeVideo = isYoutubeVideo;
+            ViewBag.PostExists = postsExist;
+            ViewBag.TaggedPosts = posts.Distinct();
+            return View(posts.ToList());
+        }
+        public ActionResult GIFS()
+        {
+            // Listing tagged posts 
+
+            string[] tagsForListing = new string[] { "GIF", "gifche", "gif4e" };
+
+            IQueryable<Post> postByTag = db.Posts.Include(p => p.Author).OrderByDescending(p => p.Date);
+            List<Post> posts = new List<Post>();
+            foreach (var tagText in tagsForListing)
+            {
+                posts.AddRange(postByTag.Where(p => p.Tags.Select(t => t.Name).Contains(tagText)).ToList());
+            }
+
+            //Check if image is existing
+            List<bool> postsExist = new List<bool>();
+            List<bool> isYoutubeVideo = new List<bool>();
+            foreach (var post in posts)
+            {
+                if (IsValidURI(post.Body))
+                {
+                    postsExist.Add(true);
+                }
+                else
+                {
+                    postsExist.Add(false);
+                }
+
+                if (IsYouTubeVideo(post.Body))
+                {
+                    isYoutubeVideo.Add(true);
+                }
+                else
+                {
+                    isYoutubeVideo.Add(false);
+                }
+            }
+
+            ViewBag.IsYoutubeVideo = isYoutubeVideo;
+            ViewBag.PostExists = postsExist;
+            ViewBag.TaggedPosts = posts.Distinct();
+            return View(posts.ToList());
+        }
 
         public ActionResult Index()
         {
-
-
-
             var posts = db.Posts.Include(p => p.Author).OrderByDescending(p => p.Date);
             var topFiveCommentedPosts =
                 db.Posts.Include(p => p.Comments).

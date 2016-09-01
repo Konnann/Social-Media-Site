@@ -1,0 +1,76 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "SoftUni";
+}
+
+@model List<ATHNN.Models.Post>
+<section class="row">
+    @{
+        int counter = 0;
+
+        foreach (var post in ViewBag.TaggedPosts)
+        {
+
+            <div class="row">
+                <div class="post col-md-6">
+                    <a href="../Posts/Details/@post.Id">
+                        <h2>
+                            @Html.Raw(post.Title)
+                        </h2>
+                    </a>
+                    <div>
+                        Posted on <i>@post.Date.ToString("dd.MM.yyyy")</i>
+                        @if (post.Author != null)
+                        {
+                            @:by <i>@post.Author.FullName <strong>(@post.Author.UserName)</strong></i>
+                        }
+                        else
+                        {
+                            @:by Anonymous
+                        }
+
+                    </div>
+
+                    <div class="body">
+
+                        @{
+                            if (ViewBag.PostExists[counter])
+                            {
+                                if (ViewBag.IsYoutubeVideo[counter])
+                                {
+                                    <a href="../Posts/Details/@post.Id">
+                                        <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="../Posts/Details/@post.Id">
+                                        <img src="@post.Body" alt="Sample Image" width="100%" />
+                                    </a>
+
+                                }
+
+                            }
+                            else
+                            {
+                                <a href="../Posts/Details/@post.Id">
+                                    <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
+                                </a>
+                            }
+                        }
+
+                    </div>
+                    <div>
+                        <a href="../Comments/Create/@post.Id" class="btn btn-default">Add new comment</a>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+                                counter++;
+                            }
+    }
+
+</section>
+

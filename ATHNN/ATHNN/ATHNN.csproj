@@ -292,6 +292,8 @@
     <Content Include="Views\Home\Gaming.cshtml" />
     <Content Include="Views\Profile\MyPosts.cshtml" />
     <Content Include="Views\Profile\ProfileTemplate.cshtml" />
+    <Content Include="Views\Home\SoftUni.cshtml" />
+    <Content Include="Views\Home\GIFS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -59,9 +59,9 @@ namespace ATHNN.Controllers
 
         // GET: Posts/Create
         [Authorize]
-        public ActionResult Create ( )
+        public ActionResult Create()
         {
-            return View ( );
+            return View();
         }
 
         // POST: Posts/Create
@@ -70,29 +70,29 @@ namespace ATHNN.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create ( [Bind (Include = "Id,Title,Body,TagString,Tags")] Post post )
+        public ActionResult Create([Bind (Include = "Id,Title,Body,TagString,Tags")] Post post)
         {
-            if ( ModelState.IsValid )
+            if (ModelState.IsValid)
             {
 
-                List<string> taglist = post.TagString.Split (' ').ToList ( );
+                List<string> taglist = post.TagString.Split(' ').ToList();
                 foreach ( var tagl in taglist )
                 {
-                    post.Tags.Add (new Tag ( ) { Name = tagl });
+                    post.Tags.Add(new Tag() { Name = tagl });
                 }
-                post.Author = db.Users.FirstOrDefault (user => user.UserName == User.Identity.Name);
+                post.Author = db.Users.FirstOrDefault(user => user.UserName == User.Identity.Name);
                 post.Date = DateTime.Now;
                 db.Posts.Add (post);
-                db.SaveChanges ( );
-                return RedirectToAction ("Index","Home");
+                db.SaveChanges();
+                return RedirectToAction("Index","Home");
             }
 
-            return View (post);
+            return View(post);
         }
 
         // GET: Posts/Edit/5
         [Authorize]
-        public ActionResult Edit ( int? id )
+        public ActionResult Edit(int? id)
         {
             if ( id == null )
             {
@@ -112,12 +112,12 @@ namespace ATHNN.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit ( [Bind (Include = "Id,Title,Body,TagString,Tags")] Post post )
+        public ActionResult Edit([Bind (Include = "Id,Title,Body,TagString,Tags")] Post post)
         {
 
             Post thisPost = this.db.Posts.Include(p => p.Tags).FirstOrDefault(p => p.Id == post.Id);
                 
-            if ( ModelState.IsValid )
+            if (ModelState.IsValid)
             {
 
                 thisPost.Tags.Clear();
@@ -144,16 +144,16 @@ namespace ATHNN.Controllers
 
         // GET: Posts/Delete/5
         [Authorize]
-        public ActionResult Delete ( int? id )
+        public ActionResult Delete( int? id )
         {
-            if ( id == null )
+            if (id == null)
             {
-                return new HttpStatusCodeResult (HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Post post = db.Posts.Find (id);
-            if ( post == null )
+            if(post == null)
             {
-                return HttpNotFound ( );
+                return HttpNotFound();
             }
             return View (post);
         }
@@ -162,21 +162,21 @@ namespace ATHNN.Controllers
         [HttpPost, ActionName ("Delete")]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed ( int id )
+        public ActionResult DeleteConfirmed(int id)
         {
-            Post post = db.Posts.Find (id);
-            db.Posts.Remove (post);
-            db.SaveChanges ( );
-            return RedirectToAction ("Index");
+            Post post = db.Posts.Find(id);
+            db.Posts.Remove(post);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-        protected override void Dispose ( bool disposing )
+        protected override void Dispose(bool disposing)
         {
-            if ( disposing )
+            if(disposing)
             {
-                db.Dispose ( );
+                db.Dispose();
             }
-            base.Dispose (disposing);
+            base.Dispose(disposing);
         }
     }
 }
