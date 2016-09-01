@@ -273,3 +273,13 @@ a.profile-menu-buttons:hover, a.profile-menu-buttons:active {
     color: grey;
     font-size:inherit;
 }
+
+#likes {
+     position: absolute;
+    background: none;
+    margin-left: 470px;
+    text-decoration:double;
+    font-weight: 800;
+    color: grey;
+    font-size:inherit;
+}

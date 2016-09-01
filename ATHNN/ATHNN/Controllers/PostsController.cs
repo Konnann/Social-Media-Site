@@ -45,7 +45,7 @@ namespace ATHNN.Controllers
         {
             ApplicationUser currentUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
             List<Post> likedPosts = new List<Post>();
-            var pairs = db.UserPostPairs.Include(p => p.post).Distinct();
+            var pairs = db.UserPostPairs.Include(p=>p.user).Include(p => p.post).Distinct();
 
             foreach (UserPostLikedPair up in pairs)
             {

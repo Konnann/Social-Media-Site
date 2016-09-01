@@ -36,9 +36,16 @@
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
+            @if (item.Author.UserName == User.Identity.GetUserName())
+            {
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" })
+
+            }
+            @if (item.Author.UserName == User.Identity.GetUserName())
+            {
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+            }
+            @Html.ActionLink("Details", "Details", new {id = item.Id}, new {@class = "btn btn-info"})
         </td>
     </tr>
 }

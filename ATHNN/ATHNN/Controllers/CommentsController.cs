@@ -18,7 +18,7 @@ namespace ATHNN.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var comments = db.Comments.Include(c => c.Post);
+            var comments = db.Comments.Include(p=>p.Author).Include(c => c.Post);
             return View(comments.ToList());
         }
 
@@ -30,7 +30,8 @@ namespace ATHNN.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comment = db.Comments.Find(id);
+            Comment comment = db.Comments.Include(c => c.Post).SingleOrDefault(x => x.Id == id);
+            
             if (comment == null)
             {
                 return HttpNotFound();
