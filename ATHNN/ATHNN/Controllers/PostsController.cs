@@ -18,6 +18,52 @@ namespace ATHNN.Controllers
 
         private ApplicationDbContext db = new ApplicationDbContext ( );
 
+        // Post: LikePost
+        public ActionResult LikePost(int postId)
+        {
+            var currentUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            var currentPost = db.Posts.FirstOrDefault(p => p.Id == postId);
+
+            //add likes
+            //TODO: Check if post is already liked and if it is - unlike
+            UserPostLikedPair userPostPair = new UserPostLikedPair();
+            userPostPair.user = currentUser;
+            userPostPair.post = currentPost;
+            db.Posts.Find(postId).Likes += 1;
+            db.UserPostPairs.Add(userPostPair);
+            db.UserPostPairs.Include(p => p.post);
+            db.SaveChanges();
+
+            return RedirectToAction("../Home/Index");
+        }
+
+        public ActionResult LikedPosts()
+        {
+            ApplicationUser currentUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            List<Post> likedPosts = new List<Post>();
+            var pairs = db.UserPostPairs.Include(p => p.post).Distinct();
+
+            foreach (UserPostLikedPair up in pairs)
+            {
+                if (up.post != null)
+                {
+                    if (up.user.Id == currentUser.Id && !likedPosts.Contains(up.post))
+                    {
+                        Post post = db.Posts.Find(up.post.Id);
+                        likedPosts.Add(post);
+                    }
+                }
+            }
+
+
+            UserPostViewModel model = new UserPostViewModel
+            {
+                CurrentUser = currentUser,
+                AllPosts = likedPosts
+            };
+
+            return View(model);
+        }
         static public List<Post> UserPosts(ApplicationUser currentUser, List<Post> allPosts)
         {
             //exclude posts without authors to evade null reference error

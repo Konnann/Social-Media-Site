@@ -34,5 +34,6 @@ namespace ATHNN.Models
         public List<Comment> Comments { get; set; }
        
         public ICollection<Tag> Tags { get; set; }
+        public int Likes { get; set; }
     }
 }

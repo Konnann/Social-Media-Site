@@ -213,6 +213,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\UserPostLikedPair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -294,6 +295,7 @@
     <Content Include="Views\Profile\ProfileTemplate.cshtml" />
     <Content Include="Views\Home\SoftUni.cshtml" />
     <Content Include="Views\Home\GIFS.cshtml" />
+    <Content Include="Views\Posts\LikedPosts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

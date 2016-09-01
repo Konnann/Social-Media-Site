@@ -68,6 +68,13 @@
                         }
                     </div>
                     <div>
+                        @using (Html.BeginForm("LikePost", "Posts", FormMethod.Post, new { }))
+                        {
+                            <input type="hidden" name="postid" value="@post.Id">
+                            <button class="btn btn-default like" name="data" type="submit" onchange="this.form.submit()">❤</button>
+                        }
+                    </div>
+                    <div>
                         <a href="../Comments/Create/@post.Id" class="btn btn-default">Add new comment</a>
                     </div>
                     <hr />

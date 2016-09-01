@@ -1,0 +1,46 @@
+﻿@using ATHNN.Models
+@using ATHNN.Controllers
+@model ATHNN.Models.UserPostViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div>
+    <h1>Liked Posts</h1>
+    <p>@Model.AllPosts.Count</p>
+
+    <ul class="profile-content">
+        @{
+
+            List<Post> posts = Model.AllPosts;
+            foreach (var post in posts)
+            {
+                if (HomeController.IsValidURI(post.Body))
+                {
+                    <li class="profile-content-cells">
+                        <a href="../Posts/Details/@post.Id">
+                            <div class="post-preview">
+                                <div class="post-preview-background"></div>
+                                <div class="post-preview-text">View</div>
+                                <img src="@post.Body" alt="Sample Image" />
+                            </div>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="profile-content-cells">
+                        <a href="../Posts/Details/@post.Id">
+                            <div class="post-preview">
+                                <div class="post-preview-background"></div>
+                                <div class="post-preview-text">View</div>
+                                <img src="https://az853139.vo.msecnd.net/static/images/not-found.png" alt="Sample Image" width="100%" />
+                            </div>
+                        </a>
+                    </li>
+                }
+            }
+        }
+    </ul>
+</div>

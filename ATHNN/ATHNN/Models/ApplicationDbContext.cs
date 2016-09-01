@@ -25,5 +25,6 @@ namespace ATHNN.Models
         public System.Data.Entity.DbSet<ATHNN.Models.Comment> Comments { get; set; }
 
         public System.Data.Entity.DbSet<ATHNN.Models.Tag> Tags { get; set; }
+        public System.Data.Entity.DbSet<ATHNN.Models.UserPostLikedPair> UserPostPairs { get; set; }
     }
 }
