@@ -34,7 +34,7 @@
             <div>Upload Picture</div>
             @using (Html.BeginForm("UploadProfilePicture", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-                <input type="file" name="file" onchange="this.form.submit()" />
+                <input type="file" name="profileImage" onchange="this.form.submit()" />
             }
         </div>
     </div>
