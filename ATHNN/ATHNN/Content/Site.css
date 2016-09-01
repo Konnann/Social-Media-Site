@@ -262,3 +262,14 @@ a.profile-menu-buttons:hover, a.profile-menu-buttons:active {
     margin-left: 500px;
     margin-top: 20px;
 }
+
+#number-of-likes {
+    position: absolute;
+    background: none;
+    margin-top: 27px;
+    margin-left: 470px;
+    text-decoration:double;
+    font-weight: 800;
+    color: grey;
+    font-size:inherit;
+}

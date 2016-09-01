@@ -29,7 +29,11 @@ namespace ATHNN.Controllers
             UserPostLikedPair userPostPair = new UserPostLikedPair();
             userPostPair.user = currentUser;
             userPostPair.post = currentPost;
-            db.Posts.Find(postId).Likes += 1;
+
+           // if (!db.UserPostPairs.Contains(userPostPair))
+            //{
+                db.Posts.Find(postId).Likes += 1;
+            //}
             db.UserPostPairs.Add(userPostPair);
             db.UserPostPairs.Include(p => p.post);
             db.SaveChanges();
