@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ATHNN.Models.Comment>
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<ATHNN.Models.Comment>
 
 @{
     ViewBag.Title = "Index";
@@ -6,9 +7,7 @@
 
 <h2>All Comments</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -21,7 +20,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
-        <th></th>
+        <th>Actions</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -37,9 +36,9 @@
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
         </td>
     </tr>
 }
