@@ -1,2 +1,5 @@
-# ATHNN
-Software University(https://softuni.bg) - Software Technologies Course - Teamwork. The project is written in ASP.NET MVC
+# Social Media site 
+
+Not finished. Created as a course teamwork at SoftWare University(https://softuni.bg).
+Team name: ATHNN.
+The project is written in ASP.NET MVC
